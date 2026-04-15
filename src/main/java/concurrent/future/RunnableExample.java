@@ -4,24 +4,27 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * тот же пример, что и с future
+ * the same example as for future
  */
 public class RunnableExample {
     public static void main(String[] args) {
         ExecutorService executor = Executors.newFixedThreadPool(1);
-        Runnable runnable = () -> {
+
+        System.out.println(Thread.currentThread().getName() + " BEFORE");
+
+        executor.execute(() -> {
             System.out.println(Thread.currentThread().getName() + " working...");
             try {
-                Thread.sleep(5000);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            System.out.println(Thread.currentThread().getName() + " done");
-        };
-        System.out.println(Thread.currentThread().getName() + " before");
-        executor.execute(runnable);
-        System.out.println(Thread.currentThread().getName() + " after");
-        // что напечатается раньше: done или after?
+            System.out.println(Thread.currentThread().getName() + " DONE");
+        });
+
+        System.out.println(Thread.currentThread().getName() + " AFTER");
+
+        // what will be printed first: DONE or AFTER?
         executor.shutdown();
         System.out.println("ending");
     }

@@ -19,7 +19,7 @@ public class FutureExample {
         System.out.println(Thread.currentThread().getName() + " before");
         try {
             result = future.get();
-            // что напечатается раньше: done или after?
+            // what will be printed first: done or after?
             System.out.println(Thread.currentThread().getName() + " after");
         } catch (InterruptedException | ExecutionException e) {
             System.out.println(e);
